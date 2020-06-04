@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 
 //не работает! Даже в случае неверного URL возвращается статус 200!
-@WebFilter(urlPatterns = "/*",dispatcherTypes = {DispatcherType.ERROR,DispatcherType.REQUEST})
+@WebFilter(urlPatterns = "/*",dispatcherTypes = {DispatcherType.ERROR})
 public class ErrorFilter implements Filter {
 
     private static Logger logger = LoggerFactory.getLogger(ErrorFilter.class);
@@ -23,6 +23,7 @@ public class ErrorFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         logger.info("Status code "+httpResponse.getStatus());
+        request.getServletContext().setAttribute("statusCode",httpResponse.getStatus());
         chain.doFilter(request,response);
     }
 

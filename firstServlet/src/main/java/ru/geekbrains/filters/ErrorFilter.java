@@ -13,7 +13,6 @@ import java.io.IOException;
  * Created 02.06.2020
  */
 
-//не работает! Даже в случае неверного URL возвращается статус 200!
 @WebFilter(urlPatterns = "/*",dispatcherTypes = {DispatcherType.ERROR})
 public class ErrorFilter implements Filter {
 

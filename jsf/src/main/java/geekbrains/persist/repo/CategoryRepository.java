@@ -22,7 +22,6 @@ public class CategoryRepository {
 
     private Connection conn;
     private static Logger logger = LoggerFactory.getLogger(CategoryRepository.class);
-    private List<SelectItem> allCategories;
 
     @Inject
     private ServletContext sc;
@@ -38,15 +37,6 @@ public class CategoryRepository {
             logger.error("", ex);
             throw new RuntimeException(ex);
         }
-    }
-
-    public List<SelectItem> getAllCategories() {
-        this.allCategories = findAllCategories();
-        return allCategories;
-    }
-
-    public void setAllCategories(List<SelectItem> allCategories) {
-        this.allCategories = allCategories;
     }
 
     public void insert(Category category) {
@@ -115,10 +105,10 @@ public class CategoryRepository {
     }
 
 
-    public List<SelectItem> findAllCategories() {
-        List<Category> categories = this.findAll();
-        return categories.stream()
-                .map(category -> new SelectItem(category, category.getName(), "" + category.getId()))
-                .collect(Collectors.toList());
-    }
+//    public List<SelectItem> findAllCategories() {
+//        List<Category> categories = this.findAll();
+//        return categories.stream()
+//                .map(category -> new SelectItem(category, category.getName()))
+//                .collect(Collectors.toList());
+//    }
 }

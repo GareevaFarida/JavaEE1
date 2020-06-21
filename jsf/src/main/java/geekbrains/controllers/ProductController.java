@@ -4,6 +4,7 @@ import geekbrains.Cart;
 import geekbrains.ItemCart;
 import geekbrains.persist.Category;
 import geekbrains.persist.Product;
+import geekbrains.persist.repo.CategoryRepository;
 import geekbrains.persist.repo.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,13 @@ public class ProductController implements Serializable {
     @Inject
     private ProductRepository productRepository;
 
+    @Inject
+    private CategoryRepository categoryRepository;
+
     private Product product;
     private ProductRepr productRepr;
     private Cart cart;
+    private List<Category> categories;
 
     public class ProductRepr{
         private Long id;
@@ -86,8 +91,17 @@ public class ProductController implements Serializable {
         this.productRepr = productRepr;
     }
 
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
     public String createProduct(){
-        product = new Product();
+        this.categories = categoryRepository.findAll();
+        this.product = new Product();
         return "/product.xhtml?faces-redirect=true";
     }
 
@@ -96,6 +110,7 @@ public class ProductController implements Serializable {
     }
 
     public String editProduct(Product product) {
+        this.categories = categoryRepository.findAll();
         this.product = product;
         this.productRepr = new ProductRepr(product.getId(),
                 product.getName(),
@@ -130,6 +145,16 @@ public class ProductController implements Serializable {
                 (Category) productRepr.getSelectedCategory().getValue());
         logger.info("Try to save product "+product);
         if(productRepr.getId()==null){
+            productRepository.insert(product);
+        }else{
+            productRepository.update(product);
+        }
+        return "/index.xhtml?faces-redirect=true";
+    }
+
+    public String saveProduct() {
+         logger.info("Try to save product "+product);
+        if(product.getId()==null){
             productRepository.insert(product);
         }else{
             productRepository.update(product);

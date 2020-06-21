@@ -85,6 +85,26 @@
 <!--            <artifactId>hibernate-validator-annotation-processor</artifactId>-->
 <!--            <version>${validator.version}</version>-->
 <!--        </dependency>-->
+
+        <!-- java ee api -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JSF api and impl -->
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.2.12</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.2.12</version>
+        </dependency>
     </dependencies>
 
     <build>

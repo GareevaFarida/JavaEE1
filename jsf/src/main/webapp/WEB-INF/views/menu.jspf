@@ -1,0 +1,8 @@
+<%@ page pageEncoding="UTF-8" %>
+<ul style="list-style-type: none">
+    <li style="display: inline-block"><a href="index">Каталог</a></li>
+    <li style="display: inline-block"><a href="categories">Категории</a></li>
+    <li style="display: inline-block"><a href="about">О компании</a></li>
+    <li style="display: inline-block"><a href="cart">Корзина</a></li>
+    <li style="display: inline-block"><a href="order">Заказы</a></li>
+</ul>

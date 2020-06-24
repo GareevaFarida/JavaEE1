@@ -2,12 +2,11 @@ package geekbrains.controllers;
 
 import geekbrains.persist.Category;
 import geekbrains.persist.Product;
-import geekbrains.persist.repo.CategoryRepository;
+import geekbrains.persist.repo.CategoryRepositoryJPA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -25,7 +24,7 @@ public class CategoryController implements Serializable {
     private Category category;
 
     @Inject
-    private CategoryRepository categoryRepository;
+    private CategoryRepositoryJPA categoryRepository;
 
     public Category getCategory() {
         return category;
@@ -55,6 +54,9 @@ public class CategoryController implements Serializable {
         return "/categories.xhtml?faces-redirect=true";
     }
 
+    public List<Product> getProducts(Category category){
+        return category.getProducts();
+    }
 
     public String saveCategory() {
         if(category.getId()==null){

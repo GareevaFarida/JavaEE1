@@ -31,8 +31,8 @@
                 </div>
                 
                 <h:outputLabel value="Category"/>
-                <h:selectOneMenu value="#{productController.product.category}">
-                    <f:selectItems value="#{productController.categories}" var="category"
+                <h:selectOneMenu value="#{productController.product.category}" converter="categoryConverter">
+                    <f:selectItems value="#{categoryRepositoryJPA.findAll()}" var="category"
                                    itemValue="#{category}" itemLabel="#{category.name}" />
                 </h:selectOneMenu>
 

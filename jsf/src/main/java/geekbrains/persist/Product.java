@@ -1,21 +1,34 @@
 package geekbrains.persist;
 
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @Author Farida Gareeva
  * Created 10.06.2020
  */
-public class Product {
+@Entity
+@Data
+@Table(name = "products")
+public class Product implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     @NotNull(message = "Поле не должно быть пустым")
     private String name;
 
+    @Column
     private Long price;
 
+    @ManyToOne
     @NotNull(message = "Поле не должно быть пустым")
     private Category category;
 
@@ -26,38 +39,6 @@ public class Product {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
     }
 

@@ -20,9 +20,10 @@
 
 <h1>Карточка категории</h1>
 <div class="container">
-    <div class="row py-2">
-        <div class="col-12">
-            <h:form id="productForm">
+    <h:form id="categoryForm">
+        <div class="row py-2">
+            <div class="col-12">
+                <!--            <h:form id="categoryForm">-->
                 <div class="form-group">
                     <h:outputLabel value="Name"/>
                     <h:inputText styleClass="form-control" value="#{categoryController.category.name}"
@@ -33,9 +34,40 @@
 
                 <h:commandButton value="Submit" styleClass="btn btn-primary"
                                  action="#{categoryController.saveCategory}"/>
-            </h:form>
+                <!--            </h:form>-->
+            </div>
         </div>
-    </div>
+
+        <div class="col-12">
+            <h:dataTable styleClass="table table-bordered my-2"
+                         value="#{categoryController.getProducts(categoryController.category)}" var="product">
+                <h:column>
+                    <f:facet name="header">id</f:facet>
+                    #{product.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{product.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Category</f:facet>
+                    #{product.category}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Price</f:facet>
+                    #{product.price}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:commandButton value="edit" styleClass="btn btn-success"
+                                     action="#{productController.editProduct(product)}"/>
+                    <h:commandButton value="delete" styleClass="btn btn-danger"
+                                     action="#{productController.deleteProduct(product)}"/>
+                </h:column>
+            </h:dataTable>
+
+        </div>
+    </h:form>
 </div>
 
 <!-- Optional JavaScript -->

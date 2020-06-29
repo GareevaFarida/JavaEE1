@@ -27,8 +27,11 @@ public class Order implements Serializable {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @Column(nullable = false)
+    @Column
     private String phone_number;
+
+    @Column
+    private int total;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER,cascade = CascadeType.ALL,orphanRemoval = true)
     private List<OrderItem> items;

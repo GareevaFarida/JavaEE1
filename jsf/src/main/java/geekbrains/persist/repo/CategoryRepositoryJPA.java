@@ -4,20 +4,22 @@ import geekbrains.persist.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import javax.transaction.*;
+import javax.transaction.Transactional;
+import javax.transaction.UserTransaction;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+
+@ApplicationScoped
 @Named
-@Dependent
+//@Dependent
 public class CategoryRepositoryJPA implements Serializable {
     public static Logger logger = LoggerFactory.getLogger(CategoryRepositoryJPA.class);
 

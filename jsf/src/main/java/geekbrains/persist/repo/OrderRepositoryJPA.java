@@ -54,6 +54,5 @@ public class OrderRepositoryJPA implements Serializable {
         Query query = em.createQuery("FROM Order", Order.class);
         List<Order> list = query.getResultList();
         return list;
-//        return new ArrayList<Product>();
     }
 }

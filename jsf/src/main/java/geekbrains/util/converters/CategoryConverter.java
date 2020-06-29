@@ -1,8 +1,9 @@
-package geekbrains.persist.converters;
+package geekbrains.util.converters;
 
-import geekbrains.controllers.ProductController;
 import geekbrains.persist.Category;
 import geekbrains.persist.repo.CategoryRepositoryJPA;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -12,6 +13,8 @@ import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "categoryConverter")
 public class CategoryConverter implements Converter {
+
+    private static Logger logger = LoggerFactory.getLogger(CategoryConverter.class);
 //    @Override
 //    public Object getAsObject(FacesContext ctx, UIComponent uiComponent, String category_id) {
 //        ValueExpression vex =
@@ -25,6 +28,9 @@ public class CategoryConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext ctx, UIComponent uiComponent, String category_id) {
+        logger.info("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+        logger.info("it's CATEGORY CONVERTER, category_id = "+category_id);
+        logger.info("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
         ValueExpression vex =
                 ctx.getApplication().getExpressionFactory()
                         .createValueExpression(ctx.getELContext(),

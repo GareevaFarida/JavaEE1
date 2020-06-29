@@ -19,7 +19,7 @@ public class OrderItem {
     private Product product;
 
     @Column(nullable = false)
-    private Long price;
+    private int price;
 
     @Column(nullable = false)
     private int count;
@@ -30,4 +30,11 @@ public class OrderItem {
     @ManyToOne
     private Order order;
 
+    public OrderItem(Product product,int count,int price, Order order) {
+        this.product = product;
+        this.count = count;
+        this.price = price;
+        this.total = count*price;
+        this.order = order;
+    }
 }

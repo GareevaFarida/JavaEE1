@@ -4,9 +4,11 @@ import geekbrains.Cart;
 import geekbrains.ItemCart;
 import geekbrains.persist.Product;
 import geekbrains.persist.repo.ProductRepositoryJPA;
+import geekbrains.util.fiilers.ProductFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,9 +31,22 @@ public class ProductController implements Serializable {
 
     private Product product;
     private Cart cart;
+    private ProductFilter filter;
 
+    @PostConstruct
+    public void init(){
+        this.filter = new ProductFilter();
+    }
     public ProductController() {
         this.cart = new Cart();
+    }
+
+    public ProductFilter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(ProductFilter filter) {
+        this.filter = filter;
     }
 
     public Product getProduct() {
@@ -40,6 +55,10 @@ public class ProductController implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 
     public String createProduct() {
@@ -51,6 +70,10 @@ public class ProductController implements Serializable {
         return productRepository.findAll();
     }
 
+    public List<Product> getProductsWithFilter() {
+        return productRepository.findAllWithFilter(filter);
+    }
+
     public String editProduct(Product product) {
         this.product = product;
         return "/product.xhtml?faces-redirect=true";
@@ -58,7 +81,18 @@ public class ProductController implements Serializable {
 
     public String deleteProduct(Product product) {
         this.product = product;
-        productRepository.delete(product.getId());
+        if (product != null) {
+            productRepository.delete(product.getId());
+        }
+        return "/index.xhtml?faces-redirect=true";
+    }
+
+    public String useFilter() {
+        logger.info("Filter settings: category ="+filter.getCategoryId()
+                +", price min = "
+                +filter.getMinPrice()
+                +", price max = "+filter.getMaxPrice());
+
         return "/index.xhtml?faces-redirect=true";
     }
 

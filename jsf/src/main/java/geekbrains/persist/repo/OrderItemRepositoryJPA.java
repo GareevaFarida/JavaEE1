@@ -28,7 +28,7 @@ public class OrderItemRepositoryJPA implements Serializable {
     @Inject
     protected UserTransaction utx;
 
-    @Transactional
+    @Transactional(value = Transactional.TxType.MANDATORY)
     public void insert(OrderItem item) {
         em.persist(item);
     }

@@ -8,10 +8,10 @@ import geekbrains.persist.Product;
  */
 public class ItemCart {
     private Product product;
-    private Long price;
+    private int price;
     private int count;
 
-    public ItemCart(Product product, int count, Long price) {
+    public ItemCart(Product product, int count, int price) {
         this.product = product;
         this.count = count;
         this.price = price;
@@ -25,11 +25,11 @@ public class ItemCart {
         this.product = product;
     }
 
-    public Long getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

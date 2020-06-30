@@ -3,7 +3,6 @@ package geekbrains.persist;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Data
-@Table(name = "products")
+@Table
 public class Product implements Serializable {
 
     @Id

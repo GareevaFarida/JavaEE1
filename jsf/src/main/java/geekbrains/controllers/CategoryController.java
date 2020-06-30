@@ -3,11 +3,14 @@ package geekbrains.controllers;
 import geekbrains.persist.Category;
 import geekbrains.persist.Product;
 import geekbrains.persist.repo.CategoryRepositoryJPA;
+import geekbrains.service.CategoryService;
+import geekbrains.service.dao.CategoryDAO;
+import geekbrains.service.dao.ProductDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -21,48 +24,48 @@ import java.util.List;
 public class CategoryController implements Serializable {
 
     private Logger logger = LoggerFactory.getLogger(CategoryController.class);
-    private Category category;
+    private CategoryDAO category;
 
-    @Inject
-    private CategoryRepositoryJPA categoryRepository;
+    @EJB
+    private CategoryService categoryService;
 
-    public Category getCategory() {
+    public CategoryDAO getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryDAO category) {
         this.category = category;
     }
 
     public String createCategory(){
-        category = new Category();
+        category = new CategoryDAO();
         return "/category.xhtml?faces-redirect=true";
     }
 
-    public List<Category> getAllCategories(){
-        return categoryRepository.findAll();
+    public List<CategoryDAO> getAllCategories(){
+        return categoryService.findAll();
     }
 
-    public String editCategory(Category category) {
+    public String editCategory(CategoryDAO category) {
         this.category = category;
         return "/category.xhtml?faces-redirect=true";
     }
 
-    public String deleteCategory(Category category) {
+    public String deleteCategory(CategoryDAO category) {
         this.category = category;
-        categoryRepository.delete(category.getId());
+        categoryService.delete(category.getId());
         return "/categories.xhtml?faces-redirect=true";
     }
 
-    public List<Product> getProducts(Category category){
-        return category.getProducts();
+    public List<ProductDAO> getProducts(CategoryDAO category){
+        return categoryService.getProducts(category.getId());
     }
 
     public String saveCategory() {
         if(category.getId()==null){
-            categoryRepository.insert(category);
+            categoryService.insert(category);
         }else{
-            categoryRepository.update(category);
+            categoryService.update(category);
         }
         return "/categories.xhtml?faces-redirect=true";
     }

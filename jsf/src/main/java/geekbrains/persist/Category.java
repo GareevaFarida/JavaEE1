@@ -3,13 +3,12 @@ package geekbrains.persist;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "categories")
+@Table
 @Data
 public class Category {
 

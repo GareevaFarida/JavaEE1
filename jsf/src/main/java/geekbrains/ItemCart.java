@@ -1,27 +1,29 @@
 package geekbrains;
 
+
 import geekbrains.persist.Product;
+import geekbrains.service.dao.ProductDAO;
 
 /**
  * @Author Farida Gareeva
  * Created 13.06.2020
  */
 public class ItemCart {
-    private Product product;
+    private ProductDAO product;
     private int price;
     private int count;
 
-    public ItemCart(Product product, int count, int price) {
+    public ItemCart(ProductDAO product, int count, int price) {
         this.product = product;
         this.count = count;
         this.price = price;
     }
 
-    public Product getProduct() {
+    public ProductDAO getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDAO product) {
         this.product = product;
     }
 

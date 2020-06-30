@@ -1,58 +1,59 @@
 package geekbrains.persist.repo;
 
-import geekbrains.persist.Order;
-import geekbrains.persist.Product;
+import geekbrains.persist.ClientOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-@Named
-@Dependent
+//@Named
+//@Dependent
+@Stateless
 public class OrderRepositoryJPA implements Serializable {
     public static Logger logger = LoggerFactory.getLogger(OrderRepositoryJPA.class);
 
-    @PersistenceContext(unitName = "ds", type = PersistenceContextType.EXTENDED)
+   // @PersistenceContext(unitName = "ds", type = PersistenceContextType.EXTENDED)
+   @PersistenceContext(unitName = "ds")
     protected EntityManager em;
 
-    @Inject
-    protected UserTransaction utx;
-
-    @Transactional
-    public void insert(Order order) {
+    @TransactionAttribute
+    public void insert(ClientOrder order) {
+        logger.info("ORDER ID = "+order.getId()+", DATA CREATED = "+order.getCreated()+", TOTAL SUM = "+order.getTotal());
+        order.getItems().forEach(item -> {
+            logger.info("ITEM=====PRODUCT = "+item.getProduct()+", COUNT = "+item.getCount()+", PRICE = "+item.getPrice()
+                    +", TOTAL SUM = "+item.getTotal()+", ORDER ="+item.getOrder());
+        });
+        //order.setItems(new ArrayList<>());
         em.persist(order);
     }
 
-    @Transactional
-    public void update(Order order) {
+    @TransactionAttribute
+    public void update(ClientOrder order) {
         em.merge(order);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void delete(long id) {
-        Order order = em.find(Order.class, id);
+        ClientOrder order = em.find(ClientOrder.class, id);
         em.remove(order);
     }
 
-    @Transactional
-    public Order findById(long id) {
-        return em.find(Order.class, id);
+    @TransactionAttribute
+    public ClientOrder findById(long id) {
+        return em.find(ClientOrder.class, id);
     }
 
-    @Transactional
-    public List<Order> findAll() {
-        Query query = em.createQuery("FROM Order", Order.class);
-        List<Order> list = query.getResultList();
+    @TransactionAttribute
+    public List<ClientOrder> findAll() {
+        Query query = em.createQuery("FROM ClientOrder", ClientOrder.class);
+        List<ClientOrder> list = query.getResultList();
         return list;
     }
 }

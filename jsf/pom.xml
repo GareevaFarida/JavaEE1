@@ -136,11 +136,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>2.3.1.RELEASE</version>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+            <version>1.0.2.Final</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

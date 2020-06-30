@@ -52,7 +52,7 @@
                 <h:outputLabel value="Категория"/>
                 <h:selectOneMenu value="#{productController.filter.categoryId}">
                                         <f:selectItem itemValue="-1" itemLabel="--не задана--"/>
-                    <f:selectItems value="#{categoryRepositoryJPA.findAll()}" var="category"
+                    <f:selectItems value="#{categoryController.getAllCategories()}" var="category"
                                    itemValue="#{category.id}" itemLabel="#{category.name}"/>
                 </h:selectOneMenu>
             </div>
@@ -85,7 +85,7 @@
 
             <div class="col-12">
 <!--                <h:dataTable styleClass="table table-bordered my-2" value="#{productController.allProducts}"-->
-                <h:dataTable styleClass="table table-bordered my-2" value="#{productController.getProductsWithFilter()}"
+                <h:dataTable styleClass="table table-bordered my-2" value="#{productController.getAllProducts()}"
                              var="product">
                     <h:column>
                         <f:facet name="header">id</f:facet>
@@ -97,7 +97,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">Category</f:facet>
-                        #{product.category}
+                        #{product.categoryName}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Price</f:facet>

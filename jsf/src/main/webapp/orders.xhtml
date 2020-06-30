@@ -56,7 +56,7 @@
                     <h:column>
                         <f:facet name="header">Date</f:facet>
                         <h:outputText value="#{order.created}">
-                            <f:convertDateTime type="localDate" pattern="yyyy-MM-dd hh:mm:ss"/>
+                            <f:convertDateTime type="localDate" pattern="yyyy-MM-dd hh:mm"/>
                         </h:outputText>
                     </h:column>
                     <h:column>
@@ -65,7 +65,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">Phone number</f:facet>
-                        #{order.phone_number}
+                        #{order.phoneNumber}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Actions</f:facet>

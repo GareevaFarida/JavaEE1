@@ -1,5 +1,7 @@
 package geekbrains;
 
+import javax.ejb.Stateful;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,9 @@ import java.util.List;
  * @Author Farida Gareeva
  * Created 13.06.2020
  */
-public class Cart {
+
+@Stateful
+public class Cart implements Serializable {
     private List<ItemCart> items;
 
     public Cart() {

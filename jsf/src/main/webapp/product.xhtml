@@ -54,11 +54,11 @@
                 </div>
                 
                 <h:outputLabel value="Category"/>
-                <h:selectOneMenu value="#{productController.product.category}" converter="categoryConverter">
-                    <f:selectItems value="#{categoryRepositoryJPA.findAll()}" var="category"
-                                   itemValue="#{category}" itemLabel="#{category.name}" />
-                </h:selectOneMenu>
 
+                <h:selectOneMenu value="#{productController.product.categoryId}">
+                    <f:selectItems value="#{categoryController.getAllCategories()}" var="category"
+                                   itemValue="#{category.id}" itemLabel="#{category.name}" />
+                </h:selectOneMenu>
                 <div class="form-group">
                     <h:outputLabel value="Price"/>
                     <h:inputText type="number" styleClass="form-control" value="#{productController.product.price}"/>

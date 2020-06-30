@@ -6,14 +6,14 @@
 
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8"/>
+    <!--    <meta charset="utf-8">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>Product</title>
+    <title>Orders</title>
 </head>
 
 <body>
@@ -41,32 +41,43 @@
         </ul>
     </div>
 </nav>
-<h1>Карточка товара</h1>
+<h1>Каталог</h1>
 <div class="container">
     <div class="row py-2">
-        <div class="col-12">
-            <h:form id="productForm">
-                <div class="form-group">
-                    <h:outputLabel value="Name"/>
-                    <h:inputText styleClass="form-control" value="#{productController.product.name}" placeholder="Enter product's name" validatorMessage="Поле должно быть заполнено">
-                        <f:validateBean/>
-                    </h:inputText>
-                </div>
-                
-                <h:outputLabel value="Category"/>
+        <h:form id="productsForm">
 
-                <h:selectOneMenu value="#{productController.product.categoryId}">
-                    <f:selectItems value="#{categoryController.getAllCategories()}" var="category"
-                                   itemValue="#{category.id}" itemLabel="#{category.name}" />
-                </h:selectOneMenu>
-                <div class="form-group">
-                    <h:outputLabel value="Price"/>
-                    <h:inputText type="number" styleClass="form-control" value="#{productController.product.price}"/>
-                </div>
+            <div class="col-12">
+                <h:dataTable styleClass="table table-bordered my-2" value="#{orderController.getAllOrders()}"
+                             var="order">
+                    <h:column>
+                        <f:facet name="header">Number</f:facet>
+                        #{order.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Date</f:facet>
+                        <h:outputText value="#{order.created}">
+                            <f:convertDateTime type="localDate" pattern="yyyy-MM-dd hh:mm"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Total</f:facet>
+                        #{order.total}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Phone number</f:facet>
+                        #{order.phoneNumber}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actions</f:facet>
+                        <h:commandButton value="edit" styleClass="btn btn-success"
+                                         action="#{orderController.edit(order)}"/>
+                        <h:commandButton value="delete" styleClass="btn btn-danger"
+                                         action="#{orderController.delete(order)}"/>
+                    </h:column>
+                </h:dataTable>
 
-                <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{productController.saveProduct}"/>
-            </h:form>
-        </div>
+            </div>
+        </h:form>
     </div>
 </div>
 
@@ -81,6 +92,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
 </body>
 </html>

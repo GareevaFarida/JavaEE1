@@ -4,63 +4,51 @@ import geekbrains.persist.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import javax.transaction.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-@Named
-@Dependent
+
+//@ApplicationScoped
+//@Named
+@Stateless
 public class CategoryRepositoryJPA implements Serializable {
     public static Logger logger = LoggerFactory.getLogger(CategoryRepositoryJPA.class);
 
-    @PersistenceContext(unitName = "ds", type = PersistenceContextType.EXTENDED)
+    //@PersistenceContext(unitName = "ds", type = PersistenceContextType.EXTENDED)
+    @PersistenceContext(unitName = "ds")
     protected EntityManager em;
 
-    @Inject
-    protected UserTransaction utx;
-
-    @Transactional
+    @TransactionAttribute
     public void insert(Category category) {
         em.persist(category);
     }
 
-    @Transactional
+    @TransactionAttribute
     public void update(Category category) {
         em.merge(category);
     }
 
-
+    @TransactionAttribute
     public void delete(long id) {
-        try {
-            utx.begin();
-            Category category = findById(id);
-            if (category != null) {
-                em.remove(category);
-            }
-            utx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Category category = em.find(Category.class, id);
+        em.remove(category);
+
     }
 
-    @Transactional
+    @TransactionAttribute
     public Category findById(long id) {
-        return em.find(Category.class,id);
+        return em.find(Category.class, id);
     }
 
-    @Transactional
+    @TransactionAttribute
     public List<Category> findAll() {
         Query query = em.createQuery("SELECT c FROM Category c", Category.class);
         List<Category> list = query.getResultList();
         return list;
-//        return new ArrayList<Category>();
     }
 }

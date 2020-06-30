@@ -3,7 +3,6 @@ package geekbrains.persist;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Data
-@Table(name = "products")
+@Table
 public class Product implements Serializable {
 
     @Id
@@ -26,7 +25,7 @@ public class Product implements Serializable {
     private String name;
 
     @Column
-    private Long price;
+    private int price;
 
     @ManyToOne
     @NotNull(message = "Поле не должно быть пустым")
@@ -35,7 +34,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(Long id, String name, Long price, Category category) {
+    public Product(Long id, String name, int price, Category category) {
         this.id = id;
         this.name = name;
         this.price = price;

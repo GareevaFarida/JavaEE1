@@ -1,13 +1,12 @@
 package geekbrains.persist;
 
-import geekbrains.persist.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order_items")
+@Table
 @Data
 @NoArgsConstructor
 public class OrderItem {
@@ -19,7 +18,7 @@ public class OrderItem {
     private Product product;
 
     @Column(nullable = false)
-    private Long price;
+    private int price;
 
     @Column(nullable = false)
     private int count;
@@ -28,6 +27,13 @@ public class OrderItem {
     private int total;
 
     @ManyToOne
-    private Order order;
+    private ClientOrder order;
 
+    public OrderItem(Product product, int count, int price, ClientOrder order) {
+        this.product = product;
+        this.count = count;
+        this.price = price;
+        this.total = count*price;
+        this.order = order;
+    }
 }

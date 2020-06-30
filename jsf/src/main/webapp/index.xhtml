@@ -6,7 +6,7 @@
 
 <head>
     <!-- Required meta tags -->
-<!--    <meta charset="utf-8">-->
+    <!--    <meta charset="utf-8">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
@@ -18,41 +18,103 @@
 
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Catalog" outcome="index"/>
+            </li>
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Category" outcome="categories"/>
+            </li>
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Cart" outcome="cart"/>
+            </li>
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Orders" outcome="orders"/>
+            </li>
+        </ul>
+    </div>
+</nav>
 <h1>Каталог</h1>
+
+
 <div class="container">
+    <h:form id="productFilter">
+        <div class="row py-2">
+            <div class="form-group">
+                <h:outputLabel value="Категория"/>
+                <h:selectOneMenu value="#{productController.filter.categoryId}">
+                                        <f:selectItem itemValue="-1" itemLabel="--не задана--"/>
+                    <f:selectItems value="#{categoryController.getAllCategories()}" var="category"
+                                   itemValue="#{category.id}" itemLabel="#{category.name}"/>
+                </h:selectOneMenu>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="Цена от"/>
+            </div>
+            <div class="form-group">
+                <h:inputText type="number" styleClass="form-control" value="#{productController.filter.minPrice}">
+                </h:inputText>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="до"/>
+            </div>
+            <div class="form-group">
+                <h:inputText type="number" styleClass="form-control" value="#{productController.filter.maxPrice}">
+                </h:inputText>
+            </div>
+
+            <div class="form-group">
+                <h:commandButton value="Выбрать" styleClass="btn btn-primary" action="#{productController.useFilter}"/>
+            </div>
+        </div>
+    </h:form>
     <div class="row py-2">
-        <h:form id = "productsForm">
-        <div class="col-12">
-            <h:commandButton value="Add Product" styleClass="btn btn-primary" action="#{productController.createProduct}"/>
-        </div>
+        <h:form id="productsForm">
+            <div class="col-12">
+                <h:commandButton value="Add Product" styleClass="btn btn-primary"
+                                 action="#{productController.createProduct}"/>
+            </div>
 
-        <div class="col-12">
-            <h:dataTable styleClass="table table-bordered my-2" value ="#{productController.allProducts}"  var="product">
-                <h:column>
-                    <f:facet name="header">id</f:facet>
-                    #{product.id}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Name</f:facet>
-                    #{product.name}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Category</f:facet>
-                    #{product.category}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Price</f:facet>
-                    #{product.price}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Actions</f:facet>
-                    <h:commandButton value="edit" styleClass="btn btn-success" action="#{productController.editProduct(product)}"/>
-                    <h:commandButton value="delete" styleClass="btn btn-danger" action="#{productController.deleteProduct(product)}"/>
-                    <h:commandButton value="add to cart" styleClass="btn btn-success" action="#{productController.addToCart(product)}"/>
-                </h:column>
-            </h:dataTable>
+            <div class="col-12">
+<!--                <h:dataTable styleClass="table table-bordered my-2" value="#{productController.allProducts}"-->
+                <h:dataTable styleClass="table table-bordered my-2" value="#{productController.getAllProducts()}"
+                             var="product">
+                    <h:column>
+                        <f:facet name="header">id</f:facet>
+                        #{product.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        #{product.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Category</f:facet>
+                        #{product.categoryName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Price</f:facet>
+                        #{product.price}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actions</f:facet>
+                        <h:commandButton value="edit" styleClass="btn btn-success"
+                                         action="#{productController.editProduct(product)}"/>
+                        <h:commandButton value="delete" styleClass="btn btn-danger"
+                                         action="#{productController.deleteProduct(product)}"/>
+                        <h:commandButton value="add to cart" styleClass="btn btn-success"
+                                         action="#{productController.addToCart(product)}"/>
+                    </h:column>
+                </h:dataTable>
 
-        </div>
+            </div>
         </h:form>
     </div>
 </div>

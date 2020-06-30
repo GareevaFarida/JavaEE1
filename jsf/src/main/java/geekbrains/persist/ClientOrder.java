@@ -16,8 +16,8 @@ import java.util.Objects;
  */
 @Entity
 @Data
-@Table(name = "orders")
-public class Order implements Serializable {
+@Table
+public class ClientOrder implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +27,21 @@ public class Order implements Serializable {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @Column(nullable = false)
-    private String phone_number;
+    @Column
+    private String phoneNumber;
+
+    @Column
+    private int total;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER,cascade = CascadeType.ALL,orphanRemoval = true)
     private List<OrderItem> items;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", created=" + created +
+                ", total=" + total +
+                '}';
+    }
 }

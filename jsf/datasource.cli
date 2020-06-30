@@ -2,7 +2,7 @@
 data-source add \
    --jndi-name=java:/jboss/datasources/MySQLDS \
    --name=MySQLDS \
-   --connection-url=jdbc:mysql://localhost:3306/products_wildfly?createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</param-value> \
+   --connection-url=jdbc:mysql://localhost:3306/products_wildfly?createDatabaseIfNotExist=true&&allowPublicKeyRetrieval=true&&useSSL=false&&useUnicode=true&&characterEncoding=UTF-8&&serverTimezone=UTC \
    --driver-name=mysql \
    --user-name=root \
    --password=123123

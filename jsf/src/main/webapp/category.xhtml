@@ -17,7 +17,30 @@
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Catalog" outcome="index"/>
+            </li>
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Category" outcome="categories"/>
+            </li>
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Cart" outcome="cart"/>
+            </li>
+            <li class="nav-item active">
+                <h:link styleClass="nav-link" value="Orders" outcome="orders"/>
+            </li>
+        </ul>
+    </div>
+</nav>
 <h1>Карточка категории</h1>
 <div class="container">
     <h:form id="categoryForm">
@@ -51,7 +74,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Category</f:facet>
-                    #{product.category}
+                    #{product.categoryName}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Price</f:facet>

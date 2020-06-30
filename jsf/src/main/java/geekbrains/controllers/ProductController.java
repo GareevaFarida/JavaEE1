@@ -2,11 +2,15 @@ package geekbrains.controllers;
 
 import geekbrains.Cart;
 import geekbrains.ItemCart;
-import geekbrains.persist.Product;
 import geekbrains.persist.repo.ProductRepositoryJPA;
+import geekbrains.service.ProductService;
+import geekbrains.service.dao.ProductDAO;
+import geekbrains.util.fiilers.ProductFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,45 +28,78 @@ public class ProductController implements Serializable {
 
     private Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    @Inject
-    private ProductRepositoryJPA productRepository;
+    @EJB
+    private ProductService productService;
 
-    private Product product;
+    private ProductDAO product;
+
+    @EJB
     private Cart cart;
 
-    public ProductController() {
-        this.cart = new Cart();
+    private ProductFilter filter;
+
+    @PostConstruct
+    public void init() {
+        this.filter = new ProductFilter();
     }
 
-    public Product getProduct() {
+    public ProductController() {
+        // this.cart = new Cart();
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public ProductFilter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(ProductFilter filter) {
+        this.filter = filter;
+    }
+
+    public ProductDAO getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDAO product) {
         this.product = product;
     }
 
     public String createProduct() {
-        this.product = new Product();
+        this.product = new ProductDAO();
         return "/product.xhtml?faces-redirect=true";
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDAO> getAllProducts() {
+        return productService.findAll();
+        //  return productService.findAllWithFilter(filter);
     }
 
-    public String editProduct(Product product) {
+    public String editProduct(ProductDAO product) {
         this.product = product;
         return "/product.xhtml?faces-redirect=true";
     }
 
-    public String deleteProduct(Product product) {
+    public String deleteProduct(ProductDAO product) {
         this.product = product;
-        productRepository.delete(product.getId());
+        if (product != null) {
+            productService.delete(product.getId());
+        }
         return "/index.xhtml?faces-redirect=true";
     }
 
-    public void addToCart(Product product) {
+    public String useFilter() {
+        logger.info("Filter settings: category =" + filter.getCategoryId()
+                + ", price min = "
+                + filter.getMinPrice()
+                + ", price max = " + filter.getMaxPrice());
+
+        return "/index.xhtml?faces-redirect=true";
+    }
+
+    public void addToCart(ProductDAO product) {
         cart.addItem(new ItemCart(product, 1, product.getPrice()));
         List<ItemCart> items =
                 cart.getItems().stream()
@@ -81,9 +118,9 @@ public class ProductController implements Serializable {
     public String saveProduct() {
         logger.info("Try to save product " + product);
         if (product.getId() == null) {
-            productRepository.insert(product);
+            productService.insert(product);
         } else {
-            productRepository.update(product);
+            productService.update(product);
         }
         return "/index.xhtml?faces-redirect=true";
     }

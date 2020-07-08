@@ -15,7 +15,7 @@ public interface ProductService {
 
     // List<ProductDAO> findAllWithFilter(ProductFilter filter);
 
-    ProductDAO findById(long id);
+    ProductDAO findById(Long id);
 
     void insert(ProductDAO product);
 

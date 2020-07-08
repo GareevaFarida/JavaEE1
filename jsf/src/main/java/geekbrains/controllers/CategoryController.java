@@ -38,7 +38,7 @@ public class CategoryController implements Serializable {
     }
 
     public String createCategory(){
-        category = new CategoryDAO();
+        this.category = new CategoryDAO();
         return "/category.xhtml?faces-redirect=true";
     }
 

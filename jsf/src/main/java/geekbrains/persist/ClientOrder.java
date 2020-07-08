@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Data
-@Table
+@Table(name = "orders")
 public class ClientOrder implements Serializable {
 
     @Id

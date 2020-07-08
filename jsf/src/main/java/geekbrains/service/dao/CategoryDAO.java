@@ -2,15 +2,17 @@ package geekbrains.service.dao;
 
 import geekbrains.persist.Category;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class CategoryDAO implements Serializable {
 
-     private Long id;
+    private Long id;
 
-     private String name;
+    @NotNull(message = "Name of Category shouldn't be empty")
+    private String name;
 
-       public CategoryDAO() {
+    public CategoryDAO() {
     }
 
     public CategoryDAO(Long id, String name) {

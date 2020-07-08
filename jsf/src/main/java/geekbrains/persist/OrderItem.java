@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "order_items")
 @Data
 @NoArgsConstructor
 public class OrderItem {

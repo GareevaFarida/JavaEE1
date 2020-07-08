@@ -1,17 +1,21 @@
 package geekbrains.service.dao;
 
 import geekbrains.persist.Product;
+import lombok.Data;
 
-import java.util.Objects;
+import javax.validation.constraints.NotEmpty;
 
+@Data
 public class ProductDAO {
 
     private Long id;
 
+    @NotEmpty(message = "Name of product should't be empty!")
     private String name;
 
     private int price;
 
+   // @NotEmpty(message = "Category id should't be empty!")
     private Long categoryId;
 
     private String categoryName;
@@ -35,56 +39,16 @@ public class ProductDAO {
         this.categoryName = categoryName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductDAO product = (ProductDAO) o;
-        return id.equals(product.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        ProductDAO product = (ProductDAO) o;
+//        return id.equals(product.id);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id);
+//    }
 }

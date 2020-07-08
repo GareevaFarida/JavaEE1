@@ -11,6 +11,7 @@
     <modules>
 <!--        <module>firstapp</module>-->
         <module>firstServlet</module>
+        <module>ws-client</module>
     </modules>
 
 

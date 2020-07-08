@@ -39,12 +39,20 @@ public class ProductRepositoryJPA implements Serializable {
     @TransactionAttribute
     public void delete(long id) {
         Product product = em.find(Product.class, id);
-        em.remove(product);
+        if (product != null)
+            em.remove(product);
+        else throw new IllegalArgumentException("Product with id = " + id + " not found.");
     }
 
     @TransactionAttribute
     public Product findById(long id) {
         return em.find(Product.class, id);
+    }
+
+    @TransactionAttribute
+    public List<Product> findByName(String name) {
+        Query query = em.createQuery("SELECT c from Product c where name like '%" + name+"%'");
+        return query.getResultList();
     }
 
     @TransactionAttribute

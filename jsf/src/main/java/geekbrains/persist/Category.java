@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table
+@Table(name = "categories")
 @Data
 public class Category {
 
@@ -17,7 +17,7 @@ public class Category {
     private Long id;
 
     @NotNull(message = "Поле не должно быть пустым")
-    @Column
+    @Column(nullable = false,unique = true)
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)

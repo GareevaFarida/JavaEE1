@@ -1,5 +1,6 @@
 package geekbrains.service;
 
+import geekbrains.JAX_RS.CategoryServiceRest;
 import geekbrains.persist.Category;
 import geekbrains.persist.repo.CategoryRepositoryJPA;
 import geekbrains.service.dao.CategoryDAO;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService, CategoryServiceRest {
 
     @EJB
     CategoryRepositoryJPA categoryRepositoryJPA;
@@ -37,14 +38,23 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public void insert(CategoryDAO categoryDAO) {
+        checkFillingFields(categoryDAO);
+
         Category category = new Category();
         category.setId(categoryDAO.getId());
         category.setName(categoryDAO.getName());
         categoryRepositoryJPA.insert(category);
     }
 
+    private void checkFillingFields(CategoryDAO categoryDAO) {
+        if (categoryDAO.getName().isEmpty())
+            throw new IllegalArgumentException("Название категории не может быть пустым!");
+    }
+
     @Override
     public void update(CategoryDAO categoryDAO) {
+        checkFillingFields(categoryDAO);
+
         Category category = new Category();
         category.setId(categoryDAO.getId());
         category.setName(categoryDAO.getName());
@@ -53,6 +63,9 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<ProductDAO> getProducts(Long categoryId) {
+        if(categoryId==null){
+            return new ArrayList<>();
+        }
         Category category = categoryRepositoryJPA.findById(categoryId);
         if(category!=null){
             return category.getProducts().stream()

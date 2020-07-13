@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService, ProductServiceRest {
     @TransactionAttribute
     @Override
     public void insert(ProductDAO productDAO) {
-        checkFillingFields(productDAO);
+        //checkFillingFields(productDAO);
 
         Product product = new Product();
         product.setName(productDAO.getName());
@@ -97,7 +97,7 @@ public class ProductServiceImpl implements ProductService, ProductServiceRest {
 
     @Override
     public void update(ProductDAO productDAO) {
-        checkFillingFields(productDAO);
+       // checkFillingFields(productDAO);
 
         Product product = new Product();
         product.setId(productDAO.getId());

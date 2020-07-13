@@ -17,12 +17,10 @@ import java.util.List;
 public interface CategoryServiceRest {
 
     @GET
-    @Path("/getAll")
     @Produces(value = MediaType.APPLICATION_JSON)
     List<CategoryDAO> findAll();
 
     @POST
-    @Path("/insert")
     @Consumes(value = MediaType.APPLICATION_JSON)
     void insert(CategoryDAO category);
 

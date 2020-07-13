@@ -19,19 +19,19 @@ import java.util.List;
 public interface ProductServiceRest {
 
     @GET
-    @Path("/getAll")
     @Produces(value = MediaType.APPLICATION_JSON)
     List<ProductDAO> findAll();
 
     @GET
-    @Path("/get/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     ProductDAO findById(@PathParam("id") Long id);
 
     @GET
-    @Path("/getByName/{name}")
+    @Path("/getByName")
     @Produces(value = MediaType.APPLICATION_JSON)
-    List<ProductDAO> findByName(@PathParam("name")String name);
+//    List<ProductDAO> findByName(@PathParam("name")String name, @QueryParam("name1") String name1);
+    List<ProductDAO> findByName(@QueryParam("name") String name);
 
     @GET
     @Path("/getByCategoryId/{id}")
@@ -39,17 +39,17 @@ public interface ProductServiceRest {
     List<ProductDAO> findByCategoryId(@PathParam("id")Long id);
 
     @POST
-    @Path("/insert")
+//    @Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     void insert(ProductDAO prod);
 
     @PUT
-    @Path("/update")
+//    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     void update(ProductDAO prod);
 
     @DELETE
-    @Path("/delete/{id}")
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     void delete(@PathParam("id") Long id);
 

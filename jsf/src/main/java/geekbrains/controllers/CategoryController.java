@@ -51,10 +51,10 @@ public class CategoryController implements Serializable {
         return "/category.xhtml?faces-redirect=true";
     }
 
-    public String deleteCategory(CategoryDAO category) {
+    public void deleteCategory(CategoryDAO category) {
         this.category = category;
         categoryService.delete(category.getId());
-        return "/categories.xhtml?faces-redirect=true";
+        //return "/categories.xhtml?faces-redirect=true";
     }
 
     public List<ProductDAO> getProducts(CategoryDAO category){

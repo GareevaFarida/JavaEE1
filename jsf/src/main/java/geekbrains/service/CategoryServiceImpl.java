@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService, CategoryServiceRest {
 
     @EJB
-    CategoryRepositoryJPA categoryRepositoryJPA;
+    private CategoryRepositoryJPA categoryRepositoryJPA;
 
     @Override
     public void delete(Long id) {
@@ -48,11 +48,13 @@ public class CategoryServiceImpl implements CategoryService, CategoryServiceRest
 
     private void checkFillingFields(CategoryDAO categoryDAO) {
         if (categoryDAO.getName().isEmpty())
-            throw new IllegalArgumentException("Название категории не может быть пустым!");
+            throw new IllegalArgumentException("The name of category couldn't be empty!");
     }
 
     @Override
     public void update(CategoryDAO categoryDAO) {
+        if (categoryDAO == null)
+            throw new IllegalArgumentException("Category couldn't be update, because it equals null!");
         checkFillingFields(categoryDAO);
 
         Category category = new Category();

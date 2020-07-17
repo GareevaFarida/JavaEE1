@@ -82,12 +82,12 @@ public class ProductController implements Serializable {
         return "/product.xhtml?faces-redirect=true";
     }
 
-    public String deleteProduct(ProductDAO product) {
+    public void deleteProduct(ProductDAO product) {
         this.product = product;
         if (product != null) {
             productService.delete(product.getId());
         }
-        return "/index.xhtml?faces-redirect=true";
+        //return "/index.xhtml?faces-redirect=true";
     }
 
     public String useFilter() {

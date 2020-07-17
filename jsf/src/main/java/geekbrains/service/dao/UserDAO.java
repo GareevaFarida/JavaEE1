@@ -20,8 +20,8 @@ public class UserDAO implements Serializable {
 
     private Long id;
 
-    @NotNull(message = "Name of user shouldn't be empty")
-    private String name;
+    @NotNull(message = "Login shouldn't be empty")
+    private String login;
 
     private Long userGroupId;
 
@@ -39,7 +39,7 @@ public class UserDAO implements Serializable {
 
     public UserDAO(User user) {
         this.id = user.getId();
-        this.name = user.getName();
+        this.login = user.getLogin();
         if (user.getGroup() != null) {
             this.userGroupId = user.getGroup().getId();
             this.userGroupName = user.getGroup().getName();

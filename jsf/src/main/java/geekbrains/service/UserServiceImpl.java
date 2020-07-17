@@ -61,13 +61,13 @@ public class UserServiceImpl implements UserService {
         try {
             userRepositoryJPA.insert(user);
         } catch (ConstraintViolationException ex) {
-            throw new IllegalArgumentException("Impossible to insert user with name = '"
-                    + userDAO.getName() + "' because user with the same name already exists.");
+            throw new IllegalArgumentException("Impossible to insert user with login = '"
+                    + userDAO.getLogin() + "' because user with the same login already exists.");
         }
     }
 
     private void fillUserByUserDAO(User user, UserDAO userDAO) {
-        user.setName(userDAO.getName());
+        user.setLogin(userDAO.getLogin());
         user.setPassword(userDAO.getPassword());
         user.setGroup(userDAO.getUserGroupId() == null ? null : userGroupRepositoryJPA.findById(userDAO.getUserGroupId()));
         user.setRoles(userDAO.getRoles().stream()
@@ -89,8 +89,8 @@ public class UserServiceImpl implements UserService {
         try {
             userRepositoryJPA.update(user);
         } catch (ConstraintViolationException ex) {
-            throw new IllegalArgumentException("Impossible to change name of user to '"
-                    + userDAO.getName() + "' because user with the same name already exists.");
+            throw new IllegalArgumentException("Impossible to change login of user to '"
+                    + userDAO.getLogin() + "' because user with the same login already exists.");
         }
     }
 

@@ -4,44 +4,14 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<head>
-    <!-- Required meta tags -->
-    <!--    <meta charset="utf-8">-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>Products</title>
-</head>
+<ui:include src="WEB-INF/head.xhtml">
+    <ui:param name="title" value="Products"/>
+</ui:include>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<ui:include src="WEB-INF/navbar.xhtml"/>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <h:link styleClass="nav-link" value="Catalog" outcome="index"/>
-            </li>
-            <li class="nav-item active">
-                <h:link styleClass="nav-link" value="Category" outcome="categories"/>
-            </li>
-            <li class="nav-item active">
-                <h:link styleClass="nav-link" value="Cart" outcome="cart"/>
-            </li>
-            <li class="nav-item active">
-                <h:link styleClass="nav-link" value="Orders" outcome="orders"/>
-            </li>
-        </ul>
-    </div>
-</nav>
 <h1>Каталог</h1>
 
 
@@ -108,7 +78,9 @@
                         <h:commandButton value="edit" styleClass="btn btn-success"
                                          action="#{productController.editProduct(product)}"/>
                         <h:commandButton value="delete" styleClass="btn btn-danger"
-                                         action="#{productController.deleteProduct(product)}"/>
+                                         action="#{productController.deleteProduct(product)}">
+                            <f:ajax event="click" render="productsForm"/>
+                        </h:commandButton>
                         <h:commandButton value="add to cart" styleClass="btn btn-success"
                                          action="#{productController.addToCart(product)}"/>
                     </h:column>

@@ -71,9 +71,9 @@ public class OrderController implements Serializable {
         return "/order.xhtml?faces-redirect=true";
     }
 
-    public String delete(ClientOrder order) {
+    public void delete(ClientOrder order) {
         orderService.delete(order.getId());
-        return "/orders.xhtml?faces-redirect=true";
+        //return "/orders.xhtml?faces-redirect=true";
     }
 
     public String edit(OrderDAO order) {

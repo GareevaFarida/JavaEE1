@@ -1,6 +1,5 @@
 package geekbrains.service;
 
-import geekbrains.controllers.ProductController;
 import geekbrains.service.dao.CategoryDAO;
 import geekbrains.service.dao.ProductDAO;
 

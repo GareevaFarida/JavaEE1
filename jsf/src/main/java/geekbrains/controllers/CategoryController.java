@@ -9,9 +9,13 @@ import geekbrains.service.dao.ProductDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
+import javax.servlet.annotation.WebServlet;
 import java.io.Serializable;
 import java.util.List;
 
@@ -51,10 +55,10 @@ public class CategoryController implements Serializable {
         return "/category.xhtml?faces-redirect=true";
     }
 
-    public String deleteCategory(CategoryDAO category) {
+    public void deleteCategory(CategoryDAO category) {
         this.category = category;
         categoryService.delete(category.getId());
-        return "/categories.xhtml?faces-redirect=true";
+        //return "/categories.xhtml?faces-redirect=true";
     }
 
     public List<ProductDAO> getProducts(CategoryDAO category){

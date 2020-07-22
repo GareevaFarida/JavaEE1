@@ -1,12 +1,14 @@
 package geekbrains.service.dao;
 
 import geekbrains.persist.ClientOrder;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 public class OrderDAO implements Serializable {
 
     private Long id;
@@ -40,43 +42,4 @@ public class OrderDAO implements Serializable {
                 .collect(Collectors.toList()));
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public List<OrderItemDAO> getItems() {
-        return items;
-    }
-
-    public void setItems(List<OrderItemDAO> items) {
-        this.items = items;
-    }
 }

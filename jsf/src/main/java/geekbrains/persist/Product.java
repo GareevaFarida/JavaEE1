@@ -20,7 +20,7 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     @NotNull(message = "Поле не должно быть пустым")
     private String name;
 

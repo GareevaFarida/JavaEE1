@@ -7,6 +7,7 @@ import geekbrains.persist.repo.CategoryRepositoryJPA;
 import geekbrains.persist.repo.ProductRepositoryJPA;
 import geekbrains.service.dao.ProductDAO;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
@@ -20,11 +21,11 @@ import java.util.stream.Collectors;
 @Stateless
 public class ProductServiceImpl implements ProductService, ProductServiceRest {
 
-    @Inject
+    @EJB
     private ProductRepositoryJPA productRepositoryJPA;
 
 
-    @Inject
+    @EJB
     private CategoryRepositoryJPA categoryRepositoryJPA;
 
     @Override
@@ -79,7 +80,7 @@ public class ProductServiceImpl implements ProductService, ProductServiceRest {
     @TransactionAttribute
     @Override
     public void insert(ProductDAO productDAO) {
-        checkFillingFields(productDAO);
+        //checkFillingFields(productDAO);
 
         Product product = new Product();
         product.setName(productDAO.getName());
@@ -90,14 +91,14 @@ public class ProductServiceImpl implements ProductService, ProductServiceRest {
 
     private void checkFillingFields(ProductDAO productDAO) {
         if (productDAO.getName().isEmpty())
-            throw new IllegalArgumentException("Название товара не может быть пустым!");
+            throw new IllegalArgumentException("The name of product couldn't be empty!");
         if (productDAO.getCategoryId().equals("") || productDAO.getCategoryId() == null)
-            throw new IllegalArgumentException("Не указан categoryId товара!");
+            throw new IllegalArgumentException("The value of categoryId is not set!");
     }
 
     @Override
     public void update(ProductDAO productDAO) {
-        checkFillingFields(productDAO);
+       // checkFillingFields(productDAO);
 
         Product product = new Product();
         product.setId(productDAO.getId());

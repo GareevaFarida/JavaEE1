@@ -5,9 +5,13 @@ import geekbrains.persist.Category;
 import geekbrains.persist.repo.CategoryRepositoryJPA;
 import geekbrains.service.dao.CategoryDAO;
 import geekbrains.service.dao.ProductDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.ServletException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,12 +19,18 @@ import java.util.stream.Collectors;
 @Stateless
 public class CategoryServiceImpl implements CategoryService, CategoryServiceRest {
 
+    private static final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
+
     @EJB
-    CategoryRepositoryJPA categoryRepositoryJPA;
+    private CategoryRepositoryJPA categoryRepositoryJPA;
 
     @Override
     public void delete(Long id) {
-        categoryRepositoryJPA.delete(id);
+        try {
+            categoryRepositoryJPA.delete(id);
+        } catch (Exception ex) {
+            logger.error("Couldn't delete category id = " + id, ex);
+        }
     }
 
     @Override
@@ -43,22 +53,32 @@ public class CategoryServiceImpl implements CategoryService, CategoryServiceRest
         Category category = new Category();
         category.setId(categoryDAO.getId());
         category.setName(categoryDAO.getName());
-        categoryRepositoryJPA.insert(category);
+        try {
+            categoryRepositoryJPA.insert(category);
+        } catch (Exception ex) {
+            logger.error("Couldn't insert category name = " + categoryDAO.getName(), ex);
+        }
     }
 
     private void checkFillingFields(CategoryDAO categoryDAO) {
         if (categoryDAO.getName().isEmpty())
-            throw new IllegalArgumentException("Название категории не может быть пустым!");
+            throw new IllegalArgumentException("The name of category couldn't be empty!");
     }
 
     @Override
     public void update(CategoryDAO categoryDAO) {
+        if (categoryDAO == null)
+            throw new IllegalArgumentException("Category couldn't be update, because it equals null!");
         checkFillingFields(categoryDAO);
 
         Category category = new Category();
         category.setId(categoryDAO.getId());
         category.setName(categoryDAO.getName());
-        categoryRepositoryJPA.update(category);
+        try {
+            categoryRepositoryJPA.update(category);
+        } catch (Exception ex) {
+            logger.error("Couldn't update category id = " + category.getId(), ex);
+        }
     }
 
     @Override

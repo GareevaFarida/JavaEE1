@@ -1,73 +1,71 @@
-GET http://localhost:8080/jsf/api/products/get/4
+GET http://localhost:8080/jsf/api/products/2
+Accept: application/json
+###
+
+GET http://localhost:8080/jsf/api/products
 Accept: application/json
 
 ###
-GET http://localhost:8080/jsf/api/products/get/404
+GET http://localhost:8080/jsf/api/products/404
 Accept: application/json
 
 ###
-POST http://localhost:8080/jsf/api/products/insert
+POST http://localhost:8080/jsf/api/products
 Content-Type: application/json
 
 {
-  "categoryId": "6",
+  "categoryId": "1",
   "name": "super new",
   "price": 200
 }
+
 ###
-POST http://localhost:8080/jsf/api/products/insert
+POST http://localhost:8080/jsf/api/products
 Content-Type: application/json
 
 {
   "categoryId": "6",
-  "name": "",
-  "price": 200
+  "name": "dress",
+  "price": 2000
 }
-
-
 ###
-POST http://localhost:8080/jsf/api/products/insert
+PUT http://localhost:8080/jsf/api/products
 Content-Type: application/json
 
 {
-  "categoryId": "",
-  "name": "new",
-  "price": 200
+  "id": "2",
+  "name": "doll",
+  "price": 250,
+  "categoryId": 1
 }
+
 ###
-GET http://localhost:8080/jsf/api/products/getAll
+GET http://localhost:8080/jsf/api/products/getByName?name=dress
 Accept: application/json
 
 ###
-GET http://localhost:8080/jsf/api/products/getByName/prod
+
+GET http://localhost:8080/jsf/api/products/getByCategoryId/1
 Accept: application/json
 
 ###
-GET http://localhost:8080/jsf/api/products/getByCategoryId/6
+DELETE http://localhost:8080/jsf/api/products/404
+
+###
+DELETE http://localhost:8080/jsf/api/products/1
+
+###
+GET http://localhost:8080/jsf/api/categories
 Accept: application/json
 
 ###
-DELETE http://localhost:8080/jsf/api/products/delete/404
-
-###
-GET http://localhost:8080/jsf/api/categories/getAll
-Accept: application/json
-
-###
-POST http://localhost:8080/jsf/api/categories/insert
+POST http://localhost:8080/jsf/api/categories
 Content-Type: application/json
 
 {
-  "name": "toys"
+  "name": "clothes"
 }
 
-###
-POST http://localhost:8080/jsf/api/categories/insert
-Content-Type: application/json
-
-  {
-    "name": ""
-  }
 ###
 
 
